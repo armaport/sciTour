@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SciTour | Scientific Improvements in Tourism</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- Temel Değişkenler ve Sıfırlama --- */
+        :root {
+            --primary-color: #0f172a; /* Slate 900 */
+            --secondary-color: #2563eb; /* Blue 600 */
+            --accent-color: #3b82f6;
+            --text-main: #334155;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --border-color: #e2e8f0;
+            --max-width: 1200px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            margin: 0.75rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* --- Navigasyon --- */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--secondary-color);
+        }
+
+        /* --- Hero Alanı --- */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            color: var(--white);
+            padding: 7rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, #ffffff, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            color: #94a3b8;
+            font-weight: 300;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item h3 {
+            font-size: 2rem;
+            color: var(--white);
+        }
+
+        .stat-item p {
+            font-size: 0.85rem;
+            margin-bottom: 0;
+            color: #cbd5e1;
+        }
+
+        /* --- Yazım Kuralları ve Formlar --- */
+        .author-guidelines {
+            background-color: var(--white);
+        }
+
+        .guidelines-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .rules-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .rules-list {
+            margin-bottom: 2rem;
+        }
+
+        .rules-list li {
+            position: relative;
+            padding-left: 1.75rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .rules-list li::before {
+            content: "\f00c";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+        }
+
+        /* Form Kartları */
+        .download-panel {
+            background-color: var(--bg-light);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .download-panel h3 {
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            font-size: 1.25rem;
+        }
+
+        .download-card {
+            background: var(--white);
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .download-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border-color: var(--accent-color);
+        }
+
+        .card-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .card-info i {
+            font-size: 1.75rem;
+            color: #ef4444;
+        }
+        
+        .card-info .fa-file-word { color: #2b6cb0; }
+        .card-info .fa-file-pdf { color: #e53e3e; }
+
+        .card-text h4 {
+            font-size: 0.95rem;
+            color: var(--primary-color);
+            margin-bottom: 0.2rem;
+        }
+
+        .card-text span {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .btn-download {
+            background-color: var(--bg-light);
+            color: var(--primary-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .download-card:hover .btn-download {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+
+        /* --- Hakkımızda ve Kurullar --- */
+        .about-section {
+            background-color: var(--bg-light);
+        }
+
+        .about-text {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .board-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin: 3rem 0 1.5rem;
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 1rem;
+            font-weight: 600;
+        }
+
+        .grid-boards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 2rem;
+        }
+
+        .member-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.04);
+        }
+
+        .member-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #e2e8f0;
+            margin: 0 auto 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 2rem;
+        }
+
+        .member-card h4 {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .member-card .role {
+            color: var(--secondary-color);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-card .univ {
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--primary-color);
+            color: #94a3b8;
+            padding: 3rem 0;
+            font-size: 0.9rem;
+            border-top: 1px solid #1e293b;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        /* --- Responsive Tasarım --- */
+        @media (max-width: 968px) {
+            .guidelines-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .hero h1 { font-size: 2.25rem; }
+            .hero-stats { gap: 2rem; }
+        }
+
+        @media (max-width: 576px) {
+            .navbar { flex-direction: column; height: auto; padding: 1.5rem 0; gap: 1rem; }
+            .nav-links { gap: 1rem; flex-wrap: wrap; justify-content: center; }
+            .hero-stats { flex-direction: column; gap: 1.5rem; }
+            .footer-content { flex-direction: column; gap: 1.5rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container navbar">
+            <a href="#" class="logo">SciTour<span>.</span></a>
+            <nav class="nav-links">
+                <a href="#hero">Ana Sayfa</a>
+                <a href="#yazim-kurallari">Yazım Kuralları</a>
+                <a href="#formlar">Şablonlar & Formlar</a>
+                <a href="#kurullar">Kurullar & Hakkımızda</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero" class="hero">
+        <div class="container">
+            <h1>Scientific Improvements in Tourism (SciTour)</h1>
+            <p>Yılda iki kez yayınlanan, açık erişimli, uluslararası indekslerde taranan turizm ve rekreasyon odaklı akademik araştırma dergisi.</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <h3>E-ISSN</h3>
+                    <p>2458-XXXX</p>
+                </div>
+                <div class="stat-item">
+                    <h3>Yayın Periyodu</h3>
+                    <p>Yılda 2 Sayı (Haziran / Aralık)</p>
+                </div>
+                <div class="stat-item">
+                    <h3>Kapsam</h3>
+                    <p>Turizm Çalışmaları ve Sosyal Bilimler</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="yazim-kurallari" class="author-guidelines">
+        <div class="container">
+            <h2 class="section-title">Yazarlar İçin Bilgiler</h2>
+            
+            <div class="guidelines-grid">
+                <div class="rules-content">
+                    <h3>Genel Yazım Kuralları</h3>
+                    <p style="margin-bottom: 1.5rem; color: var(--text-light);">Dergimize gönderilecek makalelerin daha hızlı değerlendirilebilmesi için aşağıdaki temel biçimlendirme kurallarına tam uyum gösterilmesi gerekmektedir.</p>
+                    
+                    <ul class="rules-list">
+                        <li>Makaleler, Microsoft Word (.doc, .docx) formatında hazırlanmalı ve şablon dosya üzerine oturtulmalıdır.</li>
+                        <li>Özet bölümü hem Türkçe hem İngilizce dillerinde, en az 150 en fazla 250 kelimeden oluşmalıdır.</li>
+                        <li>Metin içi atıflar ve kaynakça düzenlemesi güncel <strong>APA 7</strong> standartlarına uygun olarak yapılandırılmalıdır.</li>
+                        <li>Çalışmalarda kör hakemlik sürecine zarar vermemek adına yazar isim ve kurum bilgileri ana metinden çıkarılmalıdır.</li>
+                    </ul>
+
+                    <h3>Değerlendirme Süreci</h3>
+                    <p style="color: var(--text-light); margin-bottom: 1.5rem;">Gönderilen tüm çalışmalar öncelikle editör kontrolünden geçer, ardından en az iki bağımsız hakem tarafından çift taraflı kör hakemlik (double-blind peer review) süreciyle değerlendirilir.</p>
+
+                    <div class="submission-box" style="padding: 1.5rem; background-color: #f1f5f9; border-left: 4px solid var(--secondary-color); border-radius: 4px; margin-top: 1.5rem;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 0.5rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-paper-plane" style="color: var(--secondary-color);"></i> Makale Gönderimi
+                        </h4>
+                        <p style="font-size: 0.95rem; color: var(--text-main); margin-bottom: 0;">
+                            Hazırladığınız makalenizi, Telif Hakkı Devir Formu ile birlikte doğrudan 
+                            <a href="mailto:improvementsscientific@gmail.com" style="color: var(--secondary-color); font-weight: 600; text-decoration: underline;">improvementsscientific@gmail.com</a> 
+                            e-posta adresine göndererek başvuru sürecini başlatabilirsiniz.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="formlar" class="download-panel">
+                    <h3>Dokümanlar & Şablonlar</h3>
+                    
+                    <div class="download-card">
+                        <div class="card-info">
+                            <i class="span-icon far fa-file-word"></i>
+                            <div class="card-text">
+                                <h4>Makale Yazım Şablonu</h4>
+                                <span>DOCX | 142 KB</span>
+                            </div>
+                        </div>
+                        <a href="dosyalar/makale_sablonu.docx" class="btn-download" title="İndir" download>
+                            <i class="fas fa-arrow-down"></i>
+                        </a>
+                    </div>
+
+                    <div class="download-card">
+                        <div class="card-info">
+                            <i class="span-icon far fa-file-pdf"></i>
+                            <div class="card-text">
+                                <h4>Telif Hakkı Devir Formu</h4>
+                                <span>PDF | 88 KB</span>
+                            </div>
+                        </div>
+                        <a href="dosyalar/telif_hakki_formu.pdf" class="btn-download" title="İndir" download="telif_hakki_formu.pdf" target="_blank">
+                            <i class="fas fa-arrow-down"></i>
+                        </a>
+                    </div>
+
+                    <div class="download-card">
+                        <div class="card-info">
+                            <i class="span-icon far fa-file-word"></i>
+                            <div class="card-text">
+                                <h4>Çıkar Çatışması Beyanı</h4>
+                                <span>DOCX | 45 KB</span>
+                            </div>
+                        </div>
+                        <a href="dosyalar/cikar_catismasi.docx" class="btn-download" title="İndir" download>
+                            <i class="fas fa-arrow-down"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kurullar" class="about-section">
+        <div class="container">
+            <h2 class="section-title">Hakkımızda & Kurullar</h2>
+            <p class="about-text" style="padding:0; margin-bottom:3rem;">
+                Scientific Improvements in Tourism (SciTour), bilimsel etiğe sıkı sıkıya bağlı kalarak, turizm alanında küresel ölçekte nitelikli ve özgün araştırmaları literatüre kazandırmayı amaçlayan açık erişimli, uluslararası hakemli bir yayındır.
+            </p>
+
+            <div class="board-title">Editörler Kurulu</div>
+            <div class="grid-boards">
+                <div class="member-card">
+                    <div class="member-avatar"><i class="fas fa-user-tie"></i></div>
+                    <h4>Prof. Dr. Melih CANAN</h4>
+                    <div class="role">Baş Editör</div>
+                    <div class="univ">Akdeniz Üniversitesi Turizm Fakültesi</div>
+                </div>
+                <div class="member-card">
+                    <div class="member-avatar"><i class="fas fa-user-tie"></i></div>
+                    <h4>Doç. Dr. Selin ARSLAN</h4>
+                    <div class="role">Editör Yardımcısı</div>
+                    <div class="univ">Muğla Sıtkı Koçman Üniversitesi Turizm Fakültesi</div>
+                </div>
+                <div class="member-card">
+                    <div class="member-avatar"><i class="fas fa-user-tie"></i></div>
+                    <h4>Dr. Öğr. Üyesi Hakan TEKİN</h4>
+                    <div class="role">Alan Editörü</div>
+                    <div class="univ">Anadolu Üniversitesi Turizm Fakültesi</div>
+                </div>
+            </div>
+
+            <div class="board-title">Akademik Bilim Kurulu</div>
+            <div class="grid-boards">
+                <div class="member-card">
+                    <div class="member-avatar"><i class="fas fa-user-graduate"></i></div>
+                    <h4>Prof. Dr. Canan ÇELİK</h4>
+                    <div class="role">Kurul Üyesi</div>
+                    <div class="univ">Yaşar Üniversitesi Turizm Rehberliği Bölümü</div>
+                </div>
+                <div class="member-card">
+                    <div class="member-avatar"><i class="fas fa-user-graduate"></i></div>
+                    <h4>Prof. Dr. David MILLER</h4>
+                    <div class="role">Kurul Üyesi</div>
+                    <div class="univ">University of Surrey - Hospitality and Tourism Management</div>
+                </div>
+                <div class="member-card">
+                    <div class="member-avatar"><i class="fas fa-user-graduate"></i></div>
+                    <h4>Prof. Dr. Ayşe KURT</h4>
+                    <div class="role">Kurul Üyesi</div>
+                    <div class="univ">Balıkesir Üniversitesi Turizm Fakültesi</div>
+                </div>
+                <div class="member-card">
+                    <div class="member-avatar"><i class="fas fa-user-graduate"></i></div>
+                    <h4>Doç. Dr. Stefan NOER</h4>
+                    <div class="role">Kurul Üyesi</div>
+                    <div class="univ">Hong Kong Polytechnic University - Hotel and Tourism Management</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2026 Scientific Improvements in Tourism (SciTour). Tüm Hakları Saklıdır.</p>
+            <div class="footer-links">
+                <a href="#hero">Yukarı Çık</a>
+                <span style="color:#475569">|</span>
+                <a href="mailto:improvementsscientific@gmail.com">İletişim</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
